@@ -1,8 +1,11 @@
 import React from "react";
 
-const Menu=(props)=>{
-    const {menu}=props;
-    const{
+// Functional Menu Component to Render the Various MENUs
+const Menu = (props) =>{
+
+    // Unpacking the Props
+    const {menu} = props;
+    const {
         optionsIndex,
         musicIndex,
         settingsIndex,
@@ -10,43 +13,53 @@ const Menu=(props)=>{
         musicVisible,
         menuVisible,
         settingsVisible
-    }=menu;
-    let show="No show available";
+    } = menu;
+
+    let show = "No show Available";
     let menuArray, musicArray, settingsArray, value;
-    if(menuVisible==="yes"){
+
+    // To check the Menu Visibility
+    if(menuVisible=== "yes"){
         show="menu";
-        menuArray=options.map((object)=>{
-            const temp=Object.keys(object);
+        menuArray = options.map((object)=>{
+            const temp = Object.keys(object);
             return temp[0];
         });
-        const val=menuArray[optionsIndex];
-        value=val;
+        const val = menuArray[optionsIndex];
+        value =val;
     }
-    if(menuVisible==="yes"){
+    if(musicVisible === "yes"){
         show="music";
-        musicArray=options[optionsIndex].music;
-        const val=musicArray[musicIndex];
-        value=val;
+        musicArray = options[optionsIndex].music;
+        const val = musicArray[musicIndex];
+        value = val;
     }
-    if(settingsVisible==="yes"){
+    if(settingsVisible === "yes"){
         show="settings";
-        settingsArray=options[optionsIndex].settings;
-        const val=settingsArray[settingsIndex];
-        value=val;
+        settingsArray = options[optionsIndex].settings;
+        const val = settingsArray[settingsIndex];
+        value =val;
     }
-    const divStyling = (item)=>{
-        if(value==item){
-            return {backgroundColor: "cyan"};
-        }else return {};
-    };
-    const imgStyling = (item) =>{
+
+    // Used in JSX Rendering
+    const divStyling = (item) =>{
         if(value===item){
-            return {display: "initial"};
-        } return {};
+            return {backgroundColor: "cyan"};
+        }
+        else return {};
     };
+    const imgStyling = (item) => {
+        if(value === item){
+            return {display: "initial"};
+        }
+        return {};
+    };
+
+    // Menu to be Rendered
     let RenderMenu = "Will be rendered soon";
-    if(show==="menu"){
-        RenderMenu=menuArray.map((item)=>{
+    // Main Menu
+    if(show === "menu"){
+        RenderMenu = menuArray.map((item)=>{
             return(
                 <div className={item} style={divStyling(item)} id="options">
                     <p style={styles.text}>{item}</p>
@@ -58,8 +71,9 @@ const Menu=(props)=>{
                 </div>
             );
         });
-    }else if(show==="music"){
-        RenderMenu=musicArray.map((item)=>{
+    // Music Menu
+    }else if(show === "music"){
+        RenderMenu = musicArray.map((item)=>{
             <div className={item} style={divStyling(item)} id="options">
                 <p style={styles.text}>{item}</p>
                 <img
@@ -70,8 +84,9 @@ const Menu=(props)=>{
             </div>
         });
     }
+    // Settings Menu
     else if(show==="settings"){
-        RenderMenu=settingsArray.map((item)=>{
+        RenderMenu = settingsArray.map((item)=>(
             <div className={item} style={divStyling(item)} id="options">
                 <p style={styles.text}>{item.replace("-"," ")}</p>
                 <img
@@ -80,22 +95,24 @@ const Menu=(props)=>{
                     style={imgStyling(item)}
                 />
             </div>
-        })
+        ))
     }
-    return (
-        <div
-            className={menuVisible==="no"? "menu hide" : "menu"}
-            style={styles.menu}
-        >
-            <div className="ipod-title" style={styles.title}>
-                <p style={{borderRadiusTopLeft:"10%"}}>Mini Ipod App</p>
-            </div>
-            {RenderMenu}
-        </div>
+    // Rendering the Menu as a whole
+    return(
+       <div
+			className={menuVisible === "no" ? "menu hide" : "menu"}
+			style={styles.menu}
+		>
+			<div className="ipod-title" style={styles.title}>
+				<p style={{ borderRadiusTopLeft: "10%" }}>Mini Ipod App</p>
+			</div>
+			{RenderMenu}
+		</div>
     );
 };
-const styles={
-    title: {
+
+const styles = {
+	title: {
 		fontSize: "1.3rem",
 		display: "flex",
 		justifyContent: "center",
@@ -112,4 +129,5 @@ const styles={
         borderBottomLeftRadius: "11px",
 	},
 };
+
 export default Menu;
