@@ -1,18 +1,27 @@
 import React from "react";
 import Ipod from "../stateless/Ipod";
+//ZingTouch is built to make implementing gestures for the browser as easy or complex as you need it to be.
 import ZingTouch from "zingtouch";
+//React Helmet is a component which lets you control your document head using their React component. 
 import Helmet from "react-helmet";
+//importing images from assets
 import images from "../../assets/images/images";
+//importing songs and thumbnails
 import songs from "../../assets/songs/songs";
 
+//stateful app class component to render app as a whole
 class App extends React.Component{
+    //constructor for initialisation of state and ref
     constructor(){
         super();
+        //state 
         const song1=new Audio(songs.music1);
         const song2=new Audio(songs.music2);
         const song3=new Audio(songs.music3);
         this.state={
+            //state managing the menu
             menu:{
+                //menu options along with their sub-menu options
                 options:[
                     {
                         music:["all-songs", "artists", "albums"],
@@ -31,33 +40,48 @@ class App extends React.Component{
                         ],
                     },
                 ],
+                //making menu visible
                 menuVisible:"no",
                 musicVisible:"no",
                 settingsVisible:"no",
+                //menu options index for traversal in options and sub options 
                 optionsIndex:0,
                 musicIndex:0,
                 settingsIndex:0,
+                //used for main page rendering like songs, artists, albums
                 pageRender:"no",
             },
+            //state managing screen display
             screen:{
+                //list wallpapers, pages in background to render
                 wallpaper:[
+                    //wallpaper
                     images.wallpaper1,
                     images.wallpaper2,
                     images.wallpaper3,
                     images.wallpaper4,
                     images.wallpaper5,
+                    //coverflow
                     images.coverflow,
+                    //games
                     images.games,
+                    //all songs
                     images.allsongs,
+                    //artists
                     images.artists,
+                    //albums
                     images.albums
                 ],
+                //wallpaper index for traversal in wallpaper array to access wallpaper
                 wallpaperIndex:0,
+                //wallpaper index for traversal in wallpaper array for every screen
                 screenIndex:0,
             },
+            //state managing mouse click css effect
             mouse:{
                 innerCircle:"",
             },
+            //state managing songs
             songsList:{
                 songs:[song1,song2,song3],
                 thumbnails:[images.song1Img,images.song2Img,images.song3Img],
@@ -65,16 +89,21 @@ class App extends React.Component{
                 name:["Stay", "Deserve You", "Yummy"],
                 isPlaying: false,
             },
+            //state managing themes
             theme:{
                 themeList:["Classic", "Dark"],
                 themeIndex:0,
             }
         };
+        //reference to access the component
         this.controllerRef=React.createRef();
         this.progressRef=React.createRef();
     }
+
+    //functionality to choose menu to display and handle menu clicks 
     isMenuVisible=(menu,screen)=>{
         const {songsList}=this.state;
+        //to go back to the previous menu from the current display
         if(menu.pageRender==="yes"){
             menu.menuVisible="yes";
             screen.screenIndex=screen.wallpaperIndex;
@@ -86,6 +115,7 @@ class App extends React.Component{
             });
             songsList.isPlaying=false;
         }
+        //to open menu and visit different menu options
         else{
             if(
                 menu.menuVisible==="yes"&&
@@ -112,6 +142,8 @@ class App extends React.Component{
         this.setState({menu,screen,songsList});
         return;
     };
+
+    //functionality to handle down press css effect on middle button
     addClass=(classname,event)=>{
         if(classname==="inner-circle" && event ==="down"){
             const{mouse}=this.state;
@@ -119,6 +151,8 @@ class App extends React.Component{
             this.setState({mouse});
         }
     };
+
+    //functionality to handle up press css effect on middle button
     removeClass=(classname,event)=>{
         if(classname==="inner-circle" && event==="down"){
             const {mouse} = this.state;
@@ -126,8 +160,11 @@ class App extends React.Component{
             this.setState({mouse});
         }
     }
+
+    //functionality to handle click operations in the app for displays
     tap=(menu,screen)=>{
         const{songsList,theme}=this.state;
+        //to go to the sub menu of the main menu
         if(
             menu.menuVisible==="yes" &&
             menu.musicVisible==="no" &&
@@ -147,6 +184,7 @@ class App extends React.Component{
                 menu.settingsVisible="yes";
             }
         }
+        //to open pages of music menu
         else if(
             menu.menuVisible==="yes" &&
             menu.musicVisible==="yes" &&
@@ -168,6 +206,7 @@ class App extends React.Component{
                 screen.screenIndex=9;
             }
         }
+        //to open pages of settings menu
         else if(
             menu.menuVisible==="yes" &&
             menu.musicVisible==="no" &&
@@ -181,9 +220,11 @@ class App extends React.Component{
                 }
                 screen.screenIndex=screen.wallpaperIndex;
             }
+            //for changing the orientation
             else if(menu.settingsIndex===1){
                 alert("Feature Will Be Added in the Next Version Release !! :");
             }
+            //for changing theme
             else{
                 if(theme.themeIndex===0){
                     theme.themeIndex=1;
@@ -194,12 +235,15 @@ class App extends React.Component{
         }else{}
         this.setState({menu,screen,songsList,theme});
     };
+
     rotate=(menu)=>{
+        //binds rotate event to active region
         this.activeRegionOuter.bind(
             this.containerElementOuter,
             "rotate",
             (event)=>{
                 event.stopPropagation();
+                //rotation in main menu
                 if(
                     menu.menuVisible==="yes" &&
                     menu.musicVisible==="no" &&
@@ -224,6 +268,7 @@ class App extends React.Component{
                         menu.optionsIndex=0;
                     }else{}
                 }
+                //rotation in music menu
                 else if(
                     menu.menuVisible==="yes" &&
                     menu.musicVisible==="yes" &&
@@ -244,6 +289,7 @@ class App extends React.Component{
                         menu.musicIndex=0;
                     }else {}
                 }
+                //rotation in settings menu
                 else if(
                     menu.menuVisible==="yes" &&
                     menu.musicVisible==="no" &&
@@ -268,10 +314,14 @@ class App extends React.Component{
             }
         );
     };
+
+    //gets called before first re-render and uses reference to controller 
     componentDidMount(){
         this.containerElementOuter=this.controllerRef.current;
         this.activeRegionOuter=new ZingTouch.Region(this.containerElementOuter);
     }
+
+    //gets called when we press play/pause button to play-pause song
     play=(songsList)=>{
         if(
             this.state.menu.pageRender==="yes" &&
@@ -288,6 +338,8 @@ class App extends React.Component{
             this.setState({songsList});
         }else {}
     };
+
+    //gets called when we press next button for next song
     nextSong =(songsList)=>{
         if(
             this.state.menu.pageRender==="yes" &&
@@ -308,6 +360,8 @@ class App extends React.Component{
             this.setState({songsList});
         }else {}
     };
+
+    //gets called when we press the previous button for previous song
     prevSong =(songsList)=>{
         if(
             this.state.menu.pageRender==="yes" &&
@@ -328,6 +382,8 @@ class App extends React.Component{
             this.setState({songsList});
         }else {}
     };
+
+    //gets called to update song progress bar
     updateProgress=(event)=>{
         if(
             this.state.menu.pageRender==="yes" &&
@@ -339,8 +395,11 @@ class App extends React.Component{
         }else {}
     };
 
+    //renders app component
     render(){
+        //unpacking state
         const {menu,screen,mouse,songsList, theme}=this.state;
+        //changing application body theme
         const styling = ()=>{
             if(theme.themeIndex===0){
                 return "background-color: ''; transition: all 2s linear";
