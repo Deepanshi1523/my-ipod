@@ -1,3 +1,169 @@
+import React from "react";
+
+//functional controller component to handle click-rotate operations in ipod
+const Controller=(props)=>{
+    //unpacking the props
+    const {
+        menu,
+        rotate,
+        tap,
+        isMenuVisible,
+        addClass,
+        removeClass,
+        mouse,
+        screen,
+        conrollerRef,
+        play,
+        songsList,
+        nextSong,
+        prevSong,
+        theme,
+    }=props;
+
+    //changing conroller container theme
+    const styling = () =>{
+        if(theme.themeIndex===0){
+            return {background: "linear-gradient(90deg,#e3e4e5,#cacaca)"};
+        }else{
+            return {background:"#df7474"};
+        }
+    }
+
+    const centerStyle=()=>{
+        if(theme.themeIndex===0){
+            return {
+                background:"black",
+                height:"80",
+                width:"80"
+            };
+        }else{
+            return{
+                background:"#df7474",
+                height:"80",
+                width:"80",
+            };
+        }
+    }
+
+    return(
+        <div 
+            className="controller-container" 
+            id="controller-container" 
+            style={styling()} 
+            onClick={(e)=>{
+                e.stopPropagation(); 
+                return;
+            }} 
+            onMouseUp={(e)=>{
+                e.stopPropagation(); 
+                removeClass("inner-circle", "down"); 
+                return;
+            }} 
+            onMouseDown={(e)=>{
+                e.stopPropagation(); 
+                return;
+            }}
+        >
+            <div 
+                className="controller" 
+                draggable="false" 
+                ref={conrollerRef} 
+                style={styles.controller} 
+                onClick={(e)=>{
+                    e.stopPropagation(); 
+                    return;
+                }} 
+                onMouseUp={(e)=>{
+                    e.stopPropagation(); 
+                    removeClass("inner-circle", "down"); 
+                    return;
+                }} 
+                onMouseDown={(e)=>{
+                    e.stopPropagation(); 
+                    rotate(menu); 
+                    return;
+                }} 
+                id="controller"
+            >
+                <div 
+                    className={
+                        mouse.innerCircle===""
+                         ?"inner-circle"
+                         :"inner-circle down"
+                        } 
+                        draggable="false"
+                        //style={centerStyle()} 
+                        style={{height:80, width:80}} 
+                        onClick={(e)=>{
+                            e.stopPropagation(); 
+                            tap(menu,screen); 
+                            return;
+                        }} 
+                        onMouseDown={(e)=>{
+                            e.stopPropagation(); 
+                            addClass("inner-circle", "down"); 
+                            return;
+                        }} 
+                        onMouseUp={(e)=>{
+                            e.stopPropagation(); 
+                            removeClass("inn-circle","down"); 
+                            return;
+                        }}
+                ></div>
+                <div 
+                    className="menu-btn" 
+                    draggable="false" 
+                    onClick={(e)=>{
+                        e.stopPropagation(); 
+                        isMenuVisible(menu,screen); 
+                        return;
+                    }}
+                >
+                    <h1 style={styles.menu} draggable="false">
+                        MENU
+                    </h1>
+                </div>
+                <div className="forward" draggable="false">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/26/26309.png"
+                        alt="forward"
+                        style={styles.forward}
+                        draggable="false"
+                        onClick={(e)=>{
+                            nextSong(songsList)
+                        }}
+                    />
+                </div>
+                <div className="backward" draggable="false">
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/26/26309.png"
+                        alt="backward"
+                        style={styles.backward}
+                        draggable="false"
+                        onClick={()=>{
+                            prevSong(songsList)
+                        }}
+                    />
+                </div>
+                <div 
+                    className="play-pause" 
+                    draggable="false" 
+                    onClick={(e)=>{
+                        play(songsList);
+                    }}
+                >
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/64/64595.png"
+                        alt="play-pause"
+                        style={styles.resume}
+                        draggable="false"
+                    />
+                </div>
+            </div>
+        </div>
+    )
+};
+
 const styles = {
 	controller: {
 		height: 230,
