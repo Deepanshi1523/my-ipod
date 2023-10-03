@@ -17,5 +17,33 @@ const Display=(props)=>{
         }
     };
 
-    
+    return (
+        <div className="display" style={themeDisplay()}>
+            {screenIndex===7 && (
+                <Allsongs
+                    songsList={songsList}
+                    updateProgress={updateProgress}
+                    progressRef={progressRef}
+                />
+            )}
+            {screenIndex!==7 &&(
+                <img
+                    src={wallpaper[screenIndex]}
+                    alt="Display Screen"
+                    style={{
+                        height:"100%",
+                        width:"100%",
+                        borderTopLeftRadius:"11px",
+                        borderTopRightRadius:"11px",
+                        borderBottomRightRadius:"11px",
+                        borderBottomLeftRadius:"11px",
+                        zIndex:2
+                    }}
+                />
+            )}
+            <Menu menu={menu}/>
+        </div>
+    );   
 }
+
+export default Display;
