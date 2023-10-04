@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/my-ipod/static/css/main.f69acc51.css",
+    "main.js": "/my-ipod/static/js/main.4a8ac8ba.js",
+    "static/media/allsongs.gif": "/my-ipod/static/media/allsongs.0c6197b33ac50e54c7fa.gif",
+    "static/media/yummy.mp3": "/my-ipod/static/media/yummy.8283f1f744f4e50d4c3e.mp3",
+    "static/media/deserve-you.mp3": "/my-ipod/static/media/deserve-you.d62eb2ea1f49c3b744ca.mp3",
+    "static/media/coverflow.png": "/my-ipod/static/media/coverflow.eb883fee3adddc1e1b74.png",
+    "static/media/stay.mp3": "/my-ipod/static/media/stay.05b4658e1f90b4fbbb74.mp3",
+    "static/media/wallpaper4.jpg": "/my-ipod/static/media/wallpaper4.aaad94256e4943b54958.jpg",
+    "static/media/albums.png": "/my-ipod/static/media/albums.b09054c9bda33e600133.png",
+    "static/media/yummy.png": "/my-ipod/static/media/yummy.6e9ade2a9f7131162462.png",
+    "static/media/games.jpeg": "/my-ipod/static/media/games.9b211f3c418d88461cbb.jpeg",
+    "static/media/deserve-you.jpeg": "/my-ipod/static/media/deserve-you.55454a9b524a13472b8a.jpeg",
+    "static/media/wallpaper5.jpg": "/my-ipod/static/media/wallpaper5.af9e2725e218a48da734.jpg",
+    "static/media/wallpaper1.jpg": "/my-ipod/static/media/wallpaper1.6f652af8dd1fb36f001f.jpg",
+    "static/media/wallpaper2.jpg": "/my-ipod/static/media/wallpaper2.5a5cba14c5706682f2b5.jpg",
+    "static/media/stay.png": "/my-ipod/static/media/stay.f49ace90c6ba237e3286.png",
+    "static/media/wallpaper3.jpg": "/my-ipod/static/media/wallpaper3.17feda07c29ded8b523a.jpg",
+    "static/media/artists.jpg": "/my-ipod/static/media/artists.7f5e149b5bb55c661967.jpg",
+    "index.html": "/my-ipod/index.html",
+    "main.f69acc51.css.map": "/my-ipod/static/css/main.f69acc51.css.map",
+    "main.4a8ac8ba.js.map": "/my-ipod/static/js/main.4a8ac8ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f69acc51.css",
+    "static/js/main.4a8ac8ba.js"
+  ]
+}
