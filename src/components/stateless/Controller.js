@@ -12,7 +12,7 @@ const Controller=(props)=>{
         removeClass,
         mouse,
         screen,
-        conrollerRef,
+        controllerRef,
         play,
         songsList,
         nextSong,
@@ -67,7 +67,7 @@ const Controller=(props)=>{
             <div 
                 className="controller" 
                 draggable="false" 
-                ref={conrollerRef} 
+                ref={controllerRef} 
                 style={styles.controller} 
                 onClick={(e)=>{
                     e.stopPropagation(); 
